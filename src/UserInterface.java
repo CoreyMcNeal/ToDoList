@@ -9,12 +9,13 @@ public class UserInterface {
 
     public void start() {
         ToDoList list = new ToDoList(this.reader);
+        System.out.println("Welcome to the ToDoList!");
+        System.out.print("enter ->");
+        reader.nextLine();
+
 
         while (true) {
-            System.out.println("Welcome to the ToDoList!");
-            System.out.print("enter ->");
-            reader.nextLine();
-
+            list.printList();
             System.out.println("Options: \n" + 
                                 " 1 - Add to list \n" + 
                                 " 2 - Remove from list \n" + 
@@ -22,12 +23,23 @@ public class UserInterface {
                                 "\n" +
                                 " 0 - Exit");
             
-            int userChoice = checkEntry();
-            System.out.println(userChoice);
+            int userChoice = checkChoice();
+            System.out.println();
+
+            if (userChoice == 1) {
+                list.add();
+            } else if (userChoice == 2) {
+                list.remove();
+            } else if (userChoice == 3) {
+                list.edit();
+            } else if (userChoice == 0) {
+                break;
+            }
+
         }
     }
 
-    public int checkEntry() {
+    public int checkChoice() {
         while (true) {
             try {
                 System.out.print("Choice: ");
