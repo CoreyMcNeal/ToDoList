@@ -33,7 +33,19 @@ public class ToDoList {
     }
 
     public void edit(String activity) {
+        if (!(this.activityList.contains(activity))) {
+            System.out.println("Activity does not exist.");
+            reader.nextLine();
+            return;
+        }
 
+        int activityIndex = this.activityList.indexOf(activity);
+
+        System.out.println("Chosen Activity: " + this.activityList.get(activityIndex));
+        System.out.print("Change to: ");
+
+        String newActivity = reader.nextLine();
+        this.activityList.set(activityIndex, newActivity);
     }
 
     public void printList() {
