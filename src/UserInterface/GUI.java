@@ -92,6 +92,7 @@ public class GUI implements ActionListener{
         removeEntry = new JTextField();
         removeButton = new JButton("Remove");
         endRemovingButton = new JButton("Exit");
+        endRemovingButton.addActionListener(this);
 
         removePanel.add(currentToDoList);
         removePanel.add(removeEntry);
@@ -103,17 +104,20 @@ public class GUI implements ActionListener{
         addEntry = new JTextField();
         addButton = new JButton("Add");
         endAddingButton = new JButton("Exit");
+        endAddingButton.addActionListener(this);
 
         addPanel.add(currentToDoList);
         addPanel.add(addEntry);
         addPanel.add(addButton);
         addPanel.add(endAddingButton);
+        addPanel.setVisible(false);
     }
 
     private void buildEditScreen() {
         editEntry = new JTextField();
         editButton = new JButton("Click to confirm entry to edit");
         endEditingButton = new JButton("Exit");
+        endEditingButton.addActionListener(this);
 
         editPanel.add(currentToDoList);
         editPanel.add(editEntry);
@@ -129,8 +133,11 @@ public class GUI implements ActionListener{
     }
 
     public void showAddScreen() {
+        panel.setVisible(false);
         frame.remove(panel);
+
         frame.add(addPanel, BorderLayout.CENTER);
+        addPanel.setVisible(true);
 
         frame.validate();
     }
@@ -145,6 +152,7 @@ public class GUI implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addToListButton) {
+
             showAddScreen();
 
         } else if (e.getSource() == removeFromListButton) {
@@ -154,10 +162,29 @@ public class GUI implements ActionListener{
             showEditScreen();
 
         } else if (e.getSource() == endAddingButton) {
+            addPanel.setVisible(false);
             frame.remove(addPanel);
+
+            panel.setVisible(true);
             frame.add(panel, BorderLayout.CENTER);
 
-            frame.validate(); // don't know why this isn't working. addPanel is staying for some reason
+            frame.validate();
+        } else if (e.getSource() == endRemovingButton) {
+            removePanel.setVisible(false);
+            frame.remove(removePanel);
+
+            panel.setVisible(true);
+            frame.add(panel, BorderLayout.CENTER);
+
+            frame.validate();
+        } else if (e.getSource() == endEditingButton) {
+            editPanel.setVisible(false);
+            frame.remove(editPanel);
+
+            panel.setVisible(true);
+            frame.add(panel, BorderLayout.CENTER);
+
+            frame.validate();
         }
     }
 }
