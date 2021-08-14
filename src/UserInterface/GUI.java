@@ -23,10 +23,15 @@ public class GUI implements ActionListener{
     private JPanel panel;
     private JButton addToListButton, removeFromListButton, editFromListButton;
 
+    private JPanel addPanel;
     private JTextField addEntry;
     private JButton addButton, endAddingButton;
+
+    private JPanel removePanel;
     private JTextField removeEntry;
     private JButton removeButton, endRemovingButton;
+
+    private JPanel editPanel;
     private JTextField editEntry;
     private JButton editButton, endEditingButton;
 
@@ -40,12 +45,21 @@ public class GUI implements ActionListener{
         ToDoList tdList = new ToDoList(reader);
         frame = new JFrame();
         panel = new JPanel();
+        addPanel = new JPanel();
+        removePanel = new JPanel();
+        editPanel = new JPanel();
         
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0,1));
-
+        panel.setLayout(new GridLayout(0, 1));
+        addPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        addPanel.setLayout(new GridLayout(0, 1));
+        removePanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        removePanel.setLayout(new GridLayout(0, 1));
+        editPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        editPanel.setLayout(new GridLayout(0, 1));
 
         frame.add(panel, BorderLayout.CENTER);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Testing GUI");
 
@@ -65,105 +79,85 @@ public class GUI implements ActionListener{
         panel.add(editFromListButton);
 
         currentToDoList = new JLabel("");
-        buildAddScreen();
-        buildRemoveScreen();
-        buildEditScreen();
 
         frame.setSize(300, 300);
         frame.setVisible(true);
+
+        buildAddScreen();
+        buildRemoveScreen();
+        buildEditScreen();
     }
 
     private void buildRemoveScreen() {
-        addEntry = new JTextField();
+        removeEntry = new JTextField();
         removeButton = new JButton("Remove");
         endRemovingButton = new JButton("Exit");
-        addEntry.setVisible(false);
-        removeButton.setVisible(false);
-        endRemovingButton.setVisible(false);
-        panel.add(addEntry);
-        panel.add(removeButton);
-        panel.add(endRemovingButton);
+
+        removePanel.add(currentToDoList);
+        removePanel.add(removeEntry);
+        removePanel.add(removeButton);
+        removePanel.add(endRemovingButton);
     }
 
     private void buildAddScreen() {
-        removeEntry = new JTextField();
+        addEntry = new JTextField();
         addButton = new JButton("Add");
         endAddingButton = new JButton("Exit");
-        removeEntry.setVisible(false);
-        addButton.setVisible(false);
-        endAddingButton.setVisible(false);
-        panel.add(removeEntry);
-        panel.add(addButton);
-        panel.add(endAddingButton);
+
+        addPanel.add(currentToDoList);
+        addPanel.add(addEntry);
+        addPanel.add(addButton);
+        addPanel.add(endAddingButton);
     }
 
     private void buildEditScreen() {
         editEntry = new JTextField();
         editButton = new JButton("Click to confirm entry to edit");
         endEditingButton = new JButton("Exit");
-        editEntry.setVisible(false);
-        editButton.setVisible(false);
-        endEditingButton.setVisible(false);
-        panel.add(editEntry);
-        panel.add(editButton);
-        panel.add(endEditingButton);
+
+        editPanel.add(currentToDoList);
+        editPanel.add(editEntry);
+        editPanel.add(editButton);
+        editPanel.add(endEditingButton);
     }
 
     private void showRemoveScreen() {
-        currentToDoList.setVisible(true);
-        removeEntry.setVisible(true);
-        removeButton.setVisible(true);
-        endRemovingButton.setVisible(true);
-        panel.validate();
+        frame.remove(panel);
+        frame.add(removePanel, BorderLayout.CENTER);
+
+        frame.validate();
     }
 
     public void showAddScreen() {
-        currentToDoList.setVisible(true);
-        addEntry.setVisible(true);
-        addButton.setVisible(true);
-        endAddingButton.setVisible(true);
-        panel.validate();
+        frame.remove(panel);
+        frame.add(addPanel, BorderLayout.CENTER);
+
+        frame.validate();
     }
 
     public void showEditScreen() {
-        currentToDoList.setVisible(true);
-        editEntry.setVisible(true);
-        editButton.setVisible(true);
-        endEditingButton.setVisible(true);
-        panel.validate();
+        frame.remove(panel);
+        frame.add(editPanel, BorderLayout.CENTER);
+
+        frame.validate();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addToListButton) {
-            System.out.println("1st");
-            hideWelcomeAndButtons();
-            showRemoveScreen();
+            showAddScreen();
+
         } else if (e.getSource() == removeFromListButton) {
-            System.out.println("2nd");
-            hideWelcomeAndButtons();
             showRemoveScreen();
+
         } else if (e.getSource() == editFromListButton) {
-            System.out.println("3rd");
-            hideWelcomeAndButtons();
             showEditScreen();
+
+        } else if (e.getSource() == endAddingButton) {
+            frame.remove(addPanel);
+            frame.add(panel, BorderLayout.CENTER);
+
+            frame.validate(); // don't know why this isn't working. addPanel is staying for some reason
         }
-        
-    }
-
-    private void hideWelcomeAndButtons() {
-        addToListButton.setVisible(false);
-        removeFromListButton.setVisible(false);
-        editFromListButton.setVisible(false);
-        welcomeLabel.setVisible(false);
-        panel.revalidate();
-    }
-
-    private void showWelcomeAndButtons() {
-        addToListButton.setVisible(true);
-        removeFromListButton.setVisible(true);
-        editFromListButton.setVisible(true);
-        welcomeLabel.setVisible(true);
-        panel.revalidate();
     }
 }
