@@ -18,19 +18,19 @@ import javax.swing.SwingConstants;
 public class GUI implements ActionListener {
     private ToDoList tdList;
 
-    private JFrame frame;
+    private JFrame frame;                                   // homepage panel objects declared
     private JPanel panel;
     private JButton addToListButton, removeFromListButton, editFromListButton;
 
-    private JPanel addPanel;                       
+    private JPanel addPanel;                                // add panel objects declared
     private JTextField addEntry;
     private JButton addButton, endAddingButton;
 
-    private JPanel removePanel;                         
+    private JPanel removePanel;                             // remove panel objects declared
     private JTextField removeEntry;
     private JButton removeButton, endRemovingButton;
 
-    private JPanel editPanel;                           
+    private JPanel editPanel;                               // editing panel objects declared
     private JTextField editEntry;
     private JButton editButton, newSubmitButton, endEditingButton;
     private String entry, newEntry;
@@ -46,15 +46,15 @@ public class GUI implements ActionListener {
         buildScreens();
     }
 
-    public void buildScreens() {
-        ToDoList tdList = new ToDoList();
+    public void buildScreens() {            //calls Add, Remove, and Edit methods, along with creating
+        ToDoList tdList = new ToDoList();   //necessary Labels and buttons
         frame = new JFrame();
         panel = new JPanel();
         addPanel = new JPanel();
         removePanel = new JPanel();
         editPanel = new JPanel();
         
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));      
         panel.setLayout(new GridLayout(0, 1));
         addPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         addPanel.setLayout(new GridLayout(0, 1));
@@ -93,7 +93,7 @@ public class GUI implements ActionListener {
         buildEditScreen();
     }
 
-    private void buildAddScreen() {
+    private void buildAddScreen() {             //builds the Add to List panel
         addFeedbackLabel = new JLabel("");
         addEntry = new JTextField();
         addButton = new JButton("Add");
@@ -108,7 +108,7 @@ public class GUI implements ActionListener {
         addPanel.add(endAddingButton);
     }
 
-    private void buildRemoveScreen() {
+    private void buildRemoveScreen() {          //builds the remove from list panel
         removeFeedbackLabel = new JLabel("");
         removeEntry = new JTextField();
         removeButton = new JButton("Remove");
@@ -124,7 +124,7 @@ public class GUI implements ActionListener {
 
     }
 
-    private void buildEditScreen() {
+    private void buildEditScreen() {            //builds the edit list panel
         editFeedbackLabel = new JLabel("");
         editEntry = new JTextField();
         editButton = new JButton("Click to confirm entry to edit");
@@ -141,7 +141,7 @@ public class GUI implements ActionListener {
         editPanel.add(endEditingButton);
     }
 
-    public void showAddScreen() {
+    public void showAddScreen() {   // removes home panel and displays add panel
         frame.remove(panel);
         panel.setVisible(false);
 
@@ -151,7 +151,7 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
-    private void showRemoveScreen() {
+    private void showRemoveScreen() { // removes home panel and displays remove panel
         frame.remove(panel);
         panel.setVisible(false);
 
@@ -161,7 +161,7 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
-    public void showEditScreen() {
+    public void showEditScreen() {          // removes home panel and displays edit panel
         frame.remove(panel);
         panel.setVisible(false);
 
@@ -171,9 +171,9 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addToListButton) {
+    @Override  
+    public void actionPerformed(ActionEvent e) {        //Button logic, directs to different conditionals based on 
+        if (e.getSource() == addToListButton) {         //the button clicked
             showAddScreen();
 
         } else if (e.getSource() == removeFromListButton) {
@@ -211,9 +211,9 @@ public class GUI implements ActionListener {
                 editFeedbackLabel.setText("Item not in list.");
                 frame.validate();
             }
-        } else if (e.getSource() == newSubmitButton) {
-            newEntry = editEntry.getText();                         // editFeedbackLabel not updating for success
-            tdList.replace(entry, newEntry);                        // 
+        } else if (e.getSource() == newSubmitButton) {      // button that shows up once the word to edit is chosen,
+            newEntry = editEntry.getText();                 // this button will replace the previous word with the new entry
+            tdList.replace(entry, newEntry);                        
 
             editPanel.remove(newSubmitButton);
             editPanel.remove(endEditingButton);
@@ -223,22 +223,22 @@ public class GUI implements ActionListener {
             editFeedbackLabel.setText("Entry successfully edited.");
             frame.validate();
 
-        } else if (e.getSource() == endAddingButton) {
+        } else if (e.getSource() == endAddingButton) {  //exits add to list panel
             addPanel.setVisible(false);
             frame.remove(addPanel);
             homePanel();
-        } else if (e.getSource() == endRemovingButton) {
+        } else if (e.getSource() == endRemovingButton) { //exits remove from list panel
             removePanel.setVisible(false);
             frame.remove(removePanel);
             homePanel();
-        } else if (e.getSource() == endEditingButton) {
+        } else if (e.getSource() == endEditingButton) { // exits editing list panel
             editPanel.setVisible(false);
             frame.remove(editPanel);
             homePanel();
         }
     }
 
-    public void homePanel() {
+    public void homePanel() {           //displays the home panel
         panel.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         frame.validate();

@@ -7,12 +7,11 @@ public class ToDoList {
     private List<String> activityList;
 
     public ToDoList() {
-        
-        this.activityList = new ArrayList<>();
+        this.activityList = new ArrayList<>();    // holds all activities logged
 
     }
 
-    public boolean add(String activity) {
+    public boolean add(String activity) {               // adds the given String to the list if not already present.
         if (this.activityList.contains(activity)) {
             return false;
         }
@@ -21,7 +20,7 @@ public class ToDoList {
         return true;
     }
 
-    public boolean remove(String activity) {
+    public boolean remove(String activity) {            // removes the given String if present in list
         if (!(this.activityList.contains(activity))) {
             return false;
         }
@@ -30,7 +29,7 @@ public class ToDoList {
         return true;
     }
 
-    public boolean exists(String activity) {
+    public boolean exists(String activity) {            // checks if the given String exists in the list
         if (!(this.activityList.contains(activity))) {
             return false;
         }
@@ -38,20 +37,12 @@ public class ToDoList {
         return true;
     }
 
-    public void replace(String activity, String newActivity) {
+    public void replace(String activity, String newActivity) {   // replaces Strings acitivty with newActivity
         int activityIndex = this.activityList.indexOf(activity);
         this.activityList.set(activityIndex, newActivity);
     }
 
-    public boolean edit(String activity) {
-
-        int activityIndex = this.activityList.indexOf(activity);
-        this.activityList.set(activityIndex, activity);
-
-        return true;
-    }
-
-    public void printList() {
+    public void printList() {                               // prints each of the entries in the activity list
         
         int index = 1;
         for (String entry: activityList) {
