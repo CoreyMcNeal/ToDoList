@@ -22,14 +22,17 @@ public class GUI implements ActionListener {
     private JPanel panel;
     private JButton addToListButton, removeFromListButton, editFromListButton;
 
+    private JLabel addPanelTasks;
     private JPanel addPanel;                                // add panel objects declared
     private JTextField addEntry;
     private JButton addButton, endAddingButton;
 
+    private JLabel removePanelTasks;
     private JPanel removePanel;                             // remove panel objects declared
     private JTextField removeEntry;
     private JButton removeButton, endRemovingButton;
 
+    private JLabel editPanelTasks;
     private JPanel editPanel;                               // editing panel objects declared
     private JTextField editEntry;
     private JButton editButton, newSubmitButton, endEditingButton;
@@ -94,6 +97,7 @@ public class GUI implements ActionListener {
     }
 
     private void buildAddScreen() {             //builds the Add to List panel
+        addPanelTasks = new JLabel("");
         addFeedbackLabel = new JLabel("");
         addEntry = new JTextField();
         addButton = new JButton("Add");
@@ -101,6 +105,7 @@ public class GUI implements ActionListener {
         addButton.addActionListener(this);
         endAddingButton.addActionListener(this);
 
+        addPanel.add(addPanelTasks);
         addPanel.add(addFeedbackLabel);
         addPanel.add(currentToDoList);
         addPanel.add(addEntry);
@@ -109,6 +114,7 @@ public class GUI implements ActionListener {
     }
 
     private void buildRemoveScreen() {          //builds the remove from list panel
+        removePanelTasks = new JLabel("");
         removeFeedbackLabel = new JLabel("");
         removeEntry = new JTextField();
         removeButton = new JButton("Remove");
@@ -116,6 +122,7 @@ public class GUI implements ActionListener {
         removeButton.addActionListener(this);
         endRemovingButton.addActionListener(this);
 
+        removePanel.add(removePanelTasks);
         removePanel.add(removeFeedbackLabel);
         removePanel.add(currentToDoList);
         removePanel.add(removeEntry);
@@ -124,7 +131,8 @@ public class GUI implements ActionListener {
 
     }
 
-    private void buildEditScreen() {            //builds the edit list panel
+    private void buildEditScreen() {     
+        editPanelTasks = new JLabel("");       //builds the edit list panel
         editFeedbackLabel = new JLabel("");
         editEntry = new JTextField();
         editButton = new JButton("Click to confirm entry to edit");
@@ -134,6 +142,7 @@ public class GUI implements ActionListener {
         endEditingButton.addActionListener(this);
         newSubmitButton.addActionListener(this);
         
+        editPanel.add(editPanelTasks);
         editPanel.add(editFeedbackLabel);
         editPanel.add(currentToDoList);
         editPanel.add(editEntry);
@@ -142,6 +151,7 @@ public class GUI implements ActionListener {
     }
 
     public void showAddScreen() {   // removes home panel and displays add panel
+        addPanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
 
@@ -152,6 +162,7 @@ public class GUI implements ActionListener {
     }
 
     private void showRemoveScreen() { // removes home panel and displays remove panel
+        removePanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
 
@@ -162,6 +173,7 @@ public class GUI implements ActionListener {
     }
 
     public void showEditScreen() {          // removes home panel and displays edit panel
+        editPanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
 

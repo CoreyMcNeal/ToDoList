@@ -42,6 +42,15 @@ public class ToDoList {
         this.activityList.set(activityIndex, newActivity);
     }
 
+    public String getTaskList() {
+        StringBuilder tasks = new StringBuilder();
+        for (String entry: this.activityList) {
+            tasks.append("- " + entry + "\n");
+        }
+
+        return tasks.toString();
+    }
+
     public void printList() {                               // prints each of the entries in the activity list
         
         int index = 1;
