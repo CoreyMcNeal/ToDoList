@@ -210,8 +210,8 @@ public class GUI implements ActionListener {
                 removeFeedbackLabel.setText("Item not in list.");
             }
 
-        } else if (e.getSource() == editButton) {
-            entry = editEntry.getText();
+        } else if (e.getSource() == editButton) {               // Need to squash bug where user re-enters edit and buttons
+            entry = editEntry.getText();                        // mess up
             if (tdList.exists(entry)) {
                 editPanel.remove(editButton);
                 editPanel.remove(endEditingButton);
@@ -251,9 +251,19 @@ public class GUI implements ActionListener {
     }
 
     public void homePanel() {           //displays the home panel
+        clearLabelsAndEntries();
         panel.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         frame.validate();
+    }
+
+    public void clearLabelsAndEntries() { // clears all feedback labels and entry boxes for all panels
+        addFeedbackLabel.setText("");
+        removeFeedbackLabel.setText("");
+        editFeedbackLabel.setText("");
+        addEntry.setText("");
+        removeEntry.setText("");
+        editEntry.setText("");
     }
 
 
