@@ -236,22 +236,19 @@ public class GUI implements ActionListener {
             frame.validate();
 
         } else if (e.getSource() == endAddingButton) {  //exits add to list panel
-            addPanel.setVisible(false);
-            frame.remove(addPanel);
-            homePanel();
+            homePanel(addPanel);
         } else if (e.getSource() == endRemovingButton) { //exits remove from list panel
-            removePanel.setVisible(false);
-            frame.remove(removePanel);
-            homePanel();
+            homePanel(removePanel);
         } else if (e.getSource() == endEditingButton) { // exits editing list panel
-            editPanel.setVisible(false);
-            frame.remove(editPanel);
-            homePanel();
+            homePanel(editPanel);
         }
     }
 
-    public void homePanel() {           //displays the home panel
+    public void homePanel(JPanel currentPanel) {    //hides and removes current panel and displays the home panel
+        currentPanel.setVisible(false);
         clearLabelsAndEntries();
+        frame.remove(currentPanel);
+        
         panel.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         frame.validate();
