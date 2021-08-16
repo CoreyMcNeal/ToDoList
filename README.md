@@ -1,8 +1,11 @@
 ## ToDoList
 
-Program is a command line ToDoList. Using the options labeled 0-4, user can choose whether to add, remove, edit, or exit the program. The choice must be an integer, and the activity to be added can be any type of string.
+Program is a GUI operated ToDoList. Using the various buttons on the home panel, the user can choose whether to add, remove, edit, or exit out of the program. The activity entered can be any type of string.
 
 ## Future
-- Fix remaining GUI bugs
+- Implement a better way to display the ToDoList content.
 
+## What I Learned
+- GUI design, using the Swing Framework.
+- Making the GUI interact and pull from back end objects.
 
