@@ -255,6 +255,7 @@ public class GUI implements ActionListener {
         } else if (e.getSource() == confirmButton) {    
             newEntry = confirmEntry.getText();                
             tdList.replace(entry, newEntry);                        
+            confirmButton.setEnabled(false);
 
             confirmFeedbackLabel.setText("Entry successfully edited.");
             frame.validate();
@@ -267,6 +268,7 @@ public class GUI implements ActionListener {
             homePanel(editPanel);
         } else if (e.getSource() == endConfirmButton) { // exits confirm entry panel
             homePanel(confirmPanel);
+            confirmButton.setEnabled(true);
         }
     }
 
