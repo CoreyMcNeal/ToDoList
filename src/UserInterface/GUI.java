@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import Main.ToDoList;
 
 public class GUI implements ActionListener {
     private ToDoList tdList;
+    private ImageIcon notepadIcon = new ImageIcon("src/images/notepadMessage.png");
 
     private JFrame frame;                                   // homepage panel objects declared
     private JPanel panel;
@@ -81,7 +83,7 @@ public class GUI implements ActionListener {
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Testing GUI");
+        frame.setTitle("ToDoList");
         frame.setSize(400, 400);
         frame.setVisible(true);
     }
@@ -100,6 +102,7 @@ public class GUI implements ActionListener {
         showListHomeButton.addActionListener(this);
         
         panel.add(welcomeLabel);
+        panel.add(new JLabel(notepadIcon));
         panel.add(addToListButton);
         panel.add(removeFromListButton);
         panel.add(editFromListButton);
@@ -268,22 +271,22 @@ public class GUI implements ActionListener {
             frame.validate();
 
         } else if (e.getSource() == showListHomeButton) {                           // shows list in popup box
-            JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
+            showTasksInWindow();
         } else if (e.getSource() == showListAddButton) {
-            JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
+            showTasksInWindow();
         } else if (e.getSource() == showListRemoveButton) {
-            JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
+            showTasksInWindow();
         } else if (e.getSource() == showListEditButton) {
-            JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
+            showTasksInWindow();
         } else if (e.getSource() == showListConfirmButton) {
-            JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
-        }else if (e.getSource() == endAddingButton) {                           //exits add to list panel
+            showTasksInWindow();
+        }else if (e.getSource() == endAddingButton) {                       //exits add to list panel
             homePanel(addPanel);
-        } else if (e.getSource() == endRemovingButton) { //exits remove from list panel
+        } else if (e.getSource() == endRemovingButton) {                    //exits remove from list panel
             homePanel(removePanel);
-        } else if (e.getSource() == endEditingButton) { // exits edit list panel
+        } else if (e.getSource() == endEditingButton) {                     // exits edit list panel
             homePanel(editPanel);
-        } else if (e.getSource() == endConfirmButton) { // exits confirm entry panel
+        } else if (e.getSource() == endConfirmButton) {                     // exits confirm entry panel
             homePanel(confirmPanel);
             confirmButton.setEnabled(true);
         }
@@ -308,5 +311,10 @@ public class GUI implements ActionListener {
         removeEntry.setText("");
         editEntry.setText("");
         confirmEntry.setText(""); 
+    }
+
+    public void showTasksInWindow() {
+        JOptionPane.showMessageDialog(frame, this.tdList.getTaskListAsString(),
+        "List of Tasks", JOptionPane.INFORMATION_MESSAGE, notepadIcon);
     }
 }
