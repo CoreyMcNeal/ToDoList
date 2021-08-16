@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,16 +36,15 @@ public class GUI implements ActionListener {
     private JButton editButton, endEditingButton;
     private String entry, newEntry;
 
-    private JPanel confirmPanel;
+    private JPanel confirmPanel;                            // confirm panel objects declared
     private JTextField confirmEntry;
     private JButton confirmButton, endConfirmButton;
 
     private JLabel welcomeLabel, addFeedbackLabel, removeFeedbackLabel, editFeedbackLabel;
     private JLabel confirmFeedbackLabel;
 
-    private JButton showListHomeButton, showListAddButton, showListRemoveButton;
+    private JButton showListHomeButton, showListAddButton, showListRemoveButton;    // ShowList buttons declared
     private JButton showListEditButton, showListConfirmButton;
-    private DefaultListModel<String> myModel = new DefaultListModel<String>();
 
     public GUI() {
         this.tdList = new ToDoList();
@@ -56,7 +54,7 @@ public class GUI implements ActionListener {
         buildScreens();
     }
 
-    public void buildScreens() {            //calls Add, Remove, Edit, and Confirm builder methods, along with creating
+    public void buildScreens() {            // calls Add, Remove, Edit, and Confirm builder methods, along with creating
         frame = new JFrame();               // the necessary panels dimensions
         panel = new JPanel();
         addPanel = new JPanel();
@@ -84,11 +82,11 @@ public class GUI implements ActionListener {
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Testing GUI");
-        frame.setSize(300, 300);
+        frame.setSize(400, 400);
         frame.setVisible(true);
     }
 
-    private void buildHomePanel() {
+    private void buildHomePanel() {                                                     //builds home panel
         welcomeLabel = new JLabel("Welcome to the ToDoList!", SwingConstants.CENTER);
 
         addToListButton = new JButton("Add To List");
@@ -237,7 +235,7 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() ==  addButton) {
             String entry = addEntry.getText();
-            if (tdList.add(entry)) {
+            if (this.tdList.add(entry)) {
                 addFeedbackLabel.setText(entry + " was added.");
             } else {
                 addFeedbackLabel.setText("Item already in list.");
@@ -245,7 +243,7 @@ public class GUI implements ActionListener {
             
         } else if (e.getSource() == removeButton) {
             String entry = removeEntry.getText();
-            if (tdList.remove(entry)) {
+            if (this.tdList.remove(entry)) {
                 removeFeedbackLabel.setText(entry + " was removed.");
             } else {
                 removeFeedbackLabel.setText("Item not in list.");
@@ -253,7 +251,7 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() == editButton) {           
             entry = editEntry.getText();                        
-            if (tdList.exists(entry)) {
+            if (this.tdList.exists(entry)) {
                 showConfirmPanel();
 
             } else {
@@ -263,13 +261,13 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() == confirmButton) {    
             newEntry = confirmEntry.getText();                
-            tdList.replace(entry, newEntry);                        
+            this.tdList.replace(entry, newEntry);                        
             confirmButton.setEnabled(false);
 
             confirmFeedbackLabel.setText("Entry successfully edited.");
             frame.validate();
 
-        } else if (e.getSource() == showListHomeButton) {
+        } else if (e.getSource() == showListHomeButton) {                           // shows list in popup box
             JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
         } else if (e.getSource() == showListAddButton) {
             JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
@@ -279,7 +277,7 @@ public class GUI implements ActionListener {
             JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
         } else if (e.getSource() == showListConfirmButton) {
             JOptionPane.showMessageDialog(frame, tdList.getTaskListAsString());
-        }else if (e.getSource() == endAddingButton) {  //exits add to list panel
+        }else if (e.getSource() == endAddingButton) {                           //exits add to list panel
             homePanel(addPanel);
         } else if (e.getSource() == endRemovingButton) { //exits remove from list panel
             homePanel(removePanel);
@@ -294,7 +292,6 @@ public class GUI implements ActionListener {
     public void homePanel(JPanel currentPanel) {    //hides and removes current panel and displays the home panel
         currentPanel.setVisible(false);
         clearLabelsAndEntries();
-        refreshTaskList();
         frame.remove(currentPanel);
 
         panel.setVisible(true);
@@ -312,11 +309,4 @@ public class GUI implements ActionListener {
         editEntry.setText("");
         confirmEntry.setText(""); 
     }
-
-    public void refreshTaskList() {
-        myModel.clear();
-        tdList.getTaskList().stream().forEach(entry -> myModel.addElement(entry));
-    }
-
-
 }

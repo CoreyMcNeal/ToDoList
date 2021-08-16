@@ -51,7 +51,7 @@ public class ToDoList {
         return tasks.toString();
     }
 
-    public List<String> getTaskList() {
+    public List<String> getTaskList() {                         // returns String list of tasks
         return this.activityList;
     }
 }
