@@ -38,8 +38,13 @@ public class GUI implements ActionListener {
     private JButton editButton, newSubmitButton, endEditingButton;
     private String entry, newEntry;
 
-    private JLabel welcomeLabel, currentToDoList, addFeedbackLabel, removeFeedbackLabel, editFeedbackLabel;
-    
+    private JLabel confirmPanelTasks;
+    private JPanel confirmPanel;
+    private JTextField confirmEntry;
+    private JButton confirmButton, endConfirmButton;
+
+    private JLabel welcomeLabel, addFeedbackLabel, removeFeedbackLabel, editFeedbackLabel;
+    private JLabel confirmFeedbackLabel;
 
     public GUI() {
         this.tdList = new ToDoList();
@@ -49,13 +54,13 @@ public class GUI implements ActionListener {
         buildScreens();
     }
 
-    public void buildScreens() {            //calls Add, Remove, and Edit methods, along with creating
-        ToDoList tdList = new ToDoList();   //necessary Labels and buttons
-        frame = new JFrame();
+    public void buildScreens() {            //calls Add, Remove, Edit, and Confirm builder methods, along with creating
+        frame = new JFrame();               // the necessary panels dimensions
         panel = new JPanel();
         addPanel = new JPanel();
         removePanel = new JPanel();
         editPanel = new JPanel();
+        confirmPanel = new JPanel();
         
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));      
         panel.setLayout(new GridLayout(0, 1));
@@ -65,38 +70,41 @@ public class GUI implements ActionListener {
         removePanel.setLayout(new GridLayout(0, 1));
         editPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         editPanel.setLayout(new GridLayout(0, 1));
+        confirmPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        confirmPanel.setLayout(new GridLayout(0, 1));
+
+        buildHomePanel();
+        buildAddPanel();
+        buildRemovePanel();
+        buildEditPanel();
+        buildConfirmPanel();
 
         frame.add(panel, BorderLayout.CENTER);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Testing GUI");
+        frame.setSize(300, 300);
+        frame.setVisible(true);
+    }
 
+    private void buildHomePanel() {
         welcomeLabel = new JLabel("Welcome to the ToDoList!", SwingConstants.CENTER);
-        panel.add(welcomeLabel);
 
         addToListButton = new JButton("Add To List");
         addToListButton.addActionListener(this);
-        panel.add(addToListButton);
 
         removeFromListButton = new JButton("Remove from List");
         removeFromListButton.addActionListener(this);
-        panel.add(removeFromListButton);
 
         editFromListButton = new JButton("Edit from list");
         editFromListButton.addActionListener(this);
+
+        panel.add(welcomeLabel);
+        panel.add(addToListButton);
+        panel.add(removeFromListButton);
         panel.add(editFromListButton);
-
-        currentToDoList = new JLabel("");
-
-        frame.setSize(300, 300);
-        frame.setVisible(true);
-
-        buildAddScreen();
-        buildRemoveScreen();
-        buildEditScreen();
     }
 
-    private void buildAddScreen() {             //builds the Add to List panel
+    private void buildAddPanel() {             //builds the Add to List panel
         addPanelTasks = new JLabel("");
         addFeedbackLabel = new JLabel("");
         addEntry = new JTextField();
@@ -107,13 +115,12 @@ public class GUI implements ActionListener {
 
         addPanel.add(addPanelTasks);
         addPanel.add(addFeedbackLabel);
-        addPanel.add(currentToDoList);
         addPanel.add(addEntry);
         addPanel.add(addButton);
         addPanel.add(endAddingButton);
     }
 
-    private void buildRemoveScreen() {          //builds the remove from list panel
+    private void buildRemovePanel() {          //builds the remove from list panel
         removePanelTasks = new JLabel("");
         removeFeedbackLabel = new JLabel("");
         removeEntry = new JTextField();
@@ -124,18 +131,17 @@ public class GUI implements ActionListener {
 
         removePanel.add(removePanelTasks);
         removePanel.add(removeFeedbackLabel);
-        removePanel.add(currentToDoList);
         removePanel.add(removeEntry);
         removePanel.add(removeButton);
         removePanel.add(endRemovingButton);
 
     }
 
-    private void buildEditScreen() {     
+    private void buildEditPanel() {     
         editPanelTasks = new JLabel("");       //builds the edit list panel
         editFeedbackLabel = new JLabel("");
         editEntry = new JTextField();
-        editButton = new JButton("Click to confirm entry to edit");
+        editButton = new JButton("Confirm entry to edit");
         newSubmitButton = new JButton("Click to submit new entry");
         endEditingButton = new JButton("Exit");
         editButton.addActionListener(this);
@@ -144,13 +150,28 @@ public class GUI implements ActionListener {
         
         editPanel.add(editPanelTasks);
         editPanel.add(editFeedbackLabel);
-        editPanel.add(currentToDoList);
         editPanel.add(editEntry);
         editPanel.add(editButton);
         editPanel.add(endEditingButton);
     }
 
-    public void showAddScreen() {   // removes home panel and displays add panel
+    private void buildConfirmPanel() {          // builds the confirm panel
+        confirmPanelTasks = new JLabel("");
+        confirmFeedbackLabel = new JLabel("");
+        confirmEntry = new JTextField();
+        confirmButton = new JButton("Confirm edit");
+        endConfirmButton = new JButton("Exit");
+        confirmButton.addActionListener(this);
+        endConfirmButton.addActionListener(this);
+
+        confirmPanel.add(confirmPanelTasks);
+        confirmPanel.add(confirmFeedbackLabel);
+        confirmPanel.add(confirmEntry);
+        confirmPanel.add(confirmButton);
+        confirmPanel.add(endConfirmButton);
+    }
+
+    public void showAddPanel() {   // removes home panel and displays add panel
         addPanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
@@ -161,7 +182,7 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
-    private void showRemoveScreen() { // removes home panel and displays remove panel
+    private void showRemovePanel() { // removes home panel and displays remove panel
         removePanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
@@ -172,7 +193,7 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
-    public void showEditScreen() {          // removes home panel and displays edit panel
+    public void showEditPanel() {          // removes home panel and displays edit panel
         editPanelTasks.setText(tdList.getTaskList());
         frame.remove(panel);
         panel.setVisible(false);
@@ -183,16 +204,27 @@ public class GUI implements ActionListener {
         frame.validate();
     }
 
+    public void showConfirmPanel() {        // removes edit panel and displays the confirm panel
+        confirmPanelTasks.setText(tdList.getTaskList());
+        frame.remove(editPanel);
+        editPanel.setVisible(false);
+
+        frame.add(confirmPanel, BorderLayout.CENTER);
+        confirmPanel.setVisible(true);
+
+        frame.validate();
+    }
+
     @Override  
     public void actionPerformed(ActionEvent e) {        //Button logic, directs to different conditionals based on 
         if (e.getSource() == addToListButton) {         //the button clicked
-            showAddScreen();
+            showAddPanel();
 
         } else if (e.getSource() == removeFromListButton) {
-            showRemoveScreen();
+            showRemovePanel();
 
         } else if (e.getSource() == editFromListButton) {
-            showEditScreen();
+            showEditPanel();
 
         } else if (e.getSource() ==  addButton) {
             String entry = addEntry.getText();
@@ -210,37 +242,31 @@ public class GUI implements ActionListener {
                 removeFeedbackLabel.setText("Item not in list.");
             }
 
-        } else if (e.getSource() == editButton) {               // Need to squash bug where user re-enters edit and buttons
-            entry = editEntry.getText();                        // mess up
+        } else if (e.getSource() == editButton) {           
+            entry = editEntry.getText();                        
             if (tdList.exists(entry)) {
-                editPanel.remove(editButton);
-                editPanel.remove(endEditingButton);
-                editPanel.add(newSubmitButton);
-                editPanel.add(endEditingButton);
+                showConfirmPanel();
 
-                frame.validate();
             } else {
                 editFeedbackLabel.setText("Item not in list.");
                 frame.validate();
             }
-        } else if (e.getSource() == newSubmitButton) {      // button that shows up once the word to edit is chosen,
-            newEntry = editEntry.getText();                 // this button will replace the previous word with the new entry
+
+        } else if (e.getSource() == confirmButton) {    
+            newEntry = confirmEntry.getText();                
             tdList.replace(entry, newEntry);                        
 
-            editPanel.remove(newSubmitButton);
-            editPanel.remove(endEditingButton);
-            editPanel.add(editButton);
-            editPanel.add(endEditingButton);
-            
-            editFeedbackLabel.setText("Entry successfully edited.");
+            confirmFeedbackLabel.setText("Entry successfully edited.");
             frame.validate();
 
         } else if (e.getSource() == endAddingButton) {  //exits add to list panel
             homePanel(addPanel);
         } else if (e.getSource() == endRemovingButton) { //exits remove from list panel
             homePanel(removePanel);
-        } else if (e.getSource() == endEditingButton) { // exits editing list panel
+        } else if (e.getSource() == endEditingButton) { // exits edit list panel
             homePanel(editPanel);
+        } else if (e.getSource() == endConfirmButton) { // exits confirm entry panel
+            homePanel(confirmPanel);
         }
     }
 
@@ -248,7 +274,7 @@ public class GUI implements ActionListener {
         currentPanel.setVisible(false);
         clearLabelsAndEntries();
         frame.remove(currentPanel);
-        
+
         panel.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
         frame.validate();
@@ -258,9 +284,11 @@ public class GUI implements ActionListener {
         addFeedbackLabel.setText("");
         removeFeedbackLabel.setText("");
         editFeedbackLabel.setText("");
+        confirmFeedbackLabel.setText("");
         addEntry.setText("");
         removeEntry.setText("");
         editEntry.setText("");
+        confirmEntry.setText(""); 
     }
 
 

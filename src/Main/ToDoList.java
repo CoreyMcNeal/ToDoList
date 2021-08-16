@@ -42,7 +42,7 @@ public class ToDoList {
         this.activityList.set(activityIndex, newActivity);
     }
 
-    public String getTaskList() {
+    public String getTaskList() {                           // gets the task list as a string
         StringBuilder tasks = new StringBuilder();
         for (String entry: this.activityList) {
             tasks.append("- " + entry + "\n");
