@@ -7,7 +7,7 @@ public class ToDoList {
     private List<String> activityList;
 
     public ToDoList() {
-        this.activityList = new ArrayList<>();    // holds all activities logged
+        this.activityList = new ArrayList<String>();    // holds all activities logged
 
     }
 
@@ -42,7 +42,7 @@ public class ToDoList {
         this.activityList.set(activityIndex, newActivity);
     }
 
-    public String getTaskList() {                           // gets the task list as a string
+    public String getTaskListAsString() {                           // gets the task list as a string
         StringBuilder tasks = new StringBuilder();
         for (String entry: this.activityList) {
             tasks.append("- " + entry + "\n");
@@ -51,12 +51,7 @@ public class ToDoList {
         return tasks.toString();
     }
 
-    public void printList() {                               // prints each of the entries in the activity list
-        
-        int index = 1;
-        for (String entry: activityList) {
-            System.out.println(index + " - " + entry);
-            index += 1;
-        }
+    public List<String> getTaskList() {
+        return this.activityList;
     }
 }
