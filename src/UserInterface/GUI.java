@@ -119,6 +119,7 @@ public class GUI implements ActionListener {
 
         showListAddButton.addActionListener(this);
         addButton.addActionListener(this);
+        addEntry.addActionListener(this);
         endAddingButton.addActionListener(this);
 
         addPanel.add(addFeedbackLabel);
@@ -138,6 +139,7 @@ public class GUI implements ActionListener {
 
         showListRemoveButton.addActionListener(this);
         removeButton.addActionListener(this);
+        removeEntry.addActionListener(this);
         endRemovingButton.addActionListener(this);
 
         removePanel.add(removeFeedbackLabel);
@@ -157,6 +159,7 @@ public class GUI implements ActionListener {
 
         showListEditButton.addActionListener(this);
         editButton.addActionListener(this);
+        editEntry.addActionListener(this);
         endEditingButton.addActionListener(this);
         
         editPanel.add(editFeedbackLabel);
@@ -176,6 +179,7 @@ public class GUI implements ActionListener {
 
         showListConfirmButton.addActionListener(this);
         confirmButton.addActionListener(this);
+        confirmEntry.addActionListener(this);
         endConfirmButton.addActionListener(this);
 
         confirmPanel.add(confirmFeedbackLabel);
@@ -236,7 +240,7 @@ public class GUI implements ActionListener {
         } else if (e.getSource() == editFromListButton) {
             showEditPanel();
 
-        } else if (e.getSource() ==  addButton) {
+        } else if (e.getSource() ==  addButton || e.getSource() == addEntry) {
             String entry = addEntry.getText();
             if (this.tdList.add(entry)) {
                 addFeedbackLabel.setText(entry + " was added.");
@@ -244,7 +248,7 @@ public class GUI implements ActionListener {
                 addFeedbackLabel.setText("Item already in list.");
             }
             
-        } else if (e.getSource() == removeButton) {
+        } else if (e.getSource() == removeButton || e.getSource() == removeEntry) {
             String entry = removeEntry.getText();
             if (this.tdList.remove(entry)) {
                 removeFeedbackLabel.setText(entry + " was removed.");
@@ -252,7 +256,7 @@ public class GUI implements ActionListener {
                 removeFeedbackLabel.setText("Item not in list.");
             }
 
-        } else if (e.getSource() == editButton) {           
+        } else if (e.getSource() == editButton || e.getSource() == editEntry) {           
             entry = editEntry.getText();                        
             if (this.tdList.exists(entry)) {
                 showConfirmPanel();
@@ -262,7 +266,7 @@ public class GUI implements ActionListener {
                 frame.validate();
             }
 
-        } else if (e.getSource() == confirmButton) {    
+        } else if (e.getSource() == confirmButton || e.getSource() == confirmEntry) {    
             newEntry = confirmEntry.getText();                
             this.tdList.replace(entry, newEntry);                        
             confirmButton.setEnabled(false);
