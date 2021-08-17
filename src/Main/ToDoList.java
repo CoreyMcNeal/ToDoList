@@ -11,13 +11,15 @@ public class ToDoList {
 
     }
 
-    public boolean add(String activity) {               // adds the given String to the list if not already present.
+    public int add(String activity) {               // adds the given String to the list if not already present.
         if (this.activityList.contains(activity)) {
-            return false;
+            return 1;
+        } else if(activity.isBlank()) {
+            return 2;
         }
 
         this.activityList.add(activity);
-        return true;
+        return 0;
     }
 
     public boolean remove(String activity) {            // removes the given String if present in list

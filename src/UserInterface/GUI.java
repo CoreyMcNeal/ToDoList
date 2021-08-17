@@ -242,10 +242,13 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() ==  addButton || e.getSource() == addEntry) {
             String entry = addEntry.getText();
-            if (this.tdList.add(entry)) {
+            int result = this.tdList.add(entry);
+            if (result == 0) {
                 addFeedbackLabel.setText(entry + " was added.");
-            } else {
+            } else if (result == 1){
                 addFeedbackLabel.setText("Item already in list.");
+            } else if (result == 2) {
+                addFeedbackLabel.setText("Entry was blank, please try again.");
             }
             
         } else if (e.getSource() == removeButton || e.getSource() == removeEntry) {
