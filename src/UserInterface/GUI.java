@@ -287,13 +287,17 @@ public class GUI implements ActionListener {
             }
 
         } else if (e.getSource() == confirmButton || e.getSource() == confirmEntry) {    
-            newEntry = confirmEntry.getText();    
-            confirmEntry.setText("");            
-            this.tdList.replace(entry, newEntry);                        
-            confirmButton.setEnabled(false);
+            newEntry = confirmEntry.getText();
+            if (this.tdList.exists(newEntry)) {
+                confirmFeedbackLabel.setText("Entry already in list.");
+            } else {
+                confirmEntry.setText("");            
+                this.tdList.replace(entry, newEntry);                        
+                confirmButton.setEnabled(false);
 
-            confirmFeedbackLabel.setText("Entry successfully edited.");
-            refreshTaskListAndFrame();
+                confirmFeedbackLabel.setText("Entry successfully edited.");
+                refreshTaskListAndFrame();
+            } 
 
         }else if (e.getSource() == endAddingButton) {                       //exits add to list panel
             homePanel(addPanel);
