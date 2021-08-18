@@ -12,10 +12,14 @@ public class ToDoList {
     }
 
     public int add(String activity) {               // adds the given String to the list if not already present.
-        if (this.activityList.contains(activity)) {
-            return 1;
-        } else if(activity.isBlank()) {
+        if (activity.isBlank()) {
             return 2;
+        }
+
+        for (String entry: this.activityList) {
+            if (entry.toLowerCase().equals(activity.toLowerCase())) {
+                return 1;
+            }
         }
 
         this.activityList.add(activity);
@@ -43,9 +47,7 @@ public class ToDoList {
         return false;
     }
 
-    public void replace(String activity, String newActivity) {   // replaces Strings activity with newActivity
-        System.out.println(activity + ", " + newActivity);
-        
+    public void replace(String activity, String newActivity) {   // replaces Strings activity with newActivity        
         int location;
         for (String entry: this.activityList) {
             if (activity.toLowerCase().equals(entry.toLowerCase())) {
