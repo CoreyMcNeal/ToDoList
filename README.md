@@ -11,3 +11,6 @@ Program is a GUI operated ToDoList. Using the various buttons on the home panel,
 - Making the GUI interact and pull from back end objects.
 - How to use stream() to quickly filter and print through given collections.
 
+## Bugs
+- If text is too long in Tasklist, instead of being scrollable, the text ends with "..." leaving the user unable to read the rest of the entry.
+
