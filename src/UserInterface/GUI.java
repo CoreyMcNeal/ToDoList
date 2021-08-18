@@ -242,6 +242,7 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() ==  addButton || e.getSource() == addEntry) {
             String entry = addEntry.getText();
+            addEntry.setText("");
             int result = this.tdList.add(entry);
             if (result == 0) {
                 addFeedbackLabel.setText(entry + " was added.");
@@ -253,6 +254,7 @@ public class GUI implements ActionListener {
             
         } else if (e.getSource() == removeButton || e.getSource() == removeEntry) {
             String entry = removeEntry.getText();
+            removeEntry.setText("");
             if (this.tdList.remove(entry)) {
                 removeFeedbackLabel.setText(entry + " was removed.");
             } else {
@@ -260,7 +262,8 @@ public class GUI implements ActionListener {
             }
 
         } else if (e.getSource() == editButton || e.getSource() == editEntry) {           
-            entry = editEntry.getText();                        
+            entry = editEntry.getText();       
+            editEntry.setText("");                 
             if (this.tdList.exists(entry)) {
                 showConfirmPanel();
 
@@ -270,7 +273,8 @@ public class GUI implements ActionListener {
             }
 
         } else if (e.getSource() == confirmButton || e.getSource() == confirmEntry) {    
-            newEntry = confirmEntry.getText();                
+            newEntry = confirmEntry.getText();    
+            confirmEntry.setText("");            
             this.tdList.replace(entry, newEntry);                        
             confirmButton.setEnabled(false);
 
