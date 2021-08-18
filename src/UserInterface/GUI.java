@@ -16,10 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Main.ToDoList;
 
-public class GUI implements ActionListener {
+public class GUI implements ActionListener, ListSelectionListener {
     private ToDoList tdList;
     private ImageIcon notepadIcon = new ImageIcon("src/images/notepadMessage.png");
 
@@ -191,6 +193,8 @@ public class GUI implements ActionListener {
         listHeader = new JLabel("Tasks:");
         taskList = new JList<String>();
         taskList.setModel(model);
+        taskList.addListSelectionListener(this);
+        taskList.setFocusable(false);
         scrollPane = new JScrollPane(taskList);
         taskList.setFixedCellWidth(200);
         listPanel.add(listHeader);
@@ -338,5 +342,16 @@ public class GUI implements ActionListener {
                             .forEach(entry -> model.addElement(entry));
         
         frame.validate();
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (addPanel.isVisible()) {
+            addEntry.setText(taskList.getSelectedValue());
+        } else if (removePanel.isVisible()) {
+            removeEntry.setText(taskList.getSelectedValue());
+        } else if (editPanel.isVisible()) {
+            editEntry.setText(taskList.getSelectedValue());
+        }
     }
 }
