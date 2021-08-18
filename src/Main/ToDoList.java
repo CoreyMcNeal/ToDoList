@@ -23,25 +23,37 @@ public class ToDoList {
     }
 
     public boolean remove(String activity) {            // removes the given String if present in list
-        if (!(this.activityList.contains(activity))) {
-            return false;
+        for (String entry: this.activityList) {
+            if (activity.toLowerCase().equals(entry.toLowerCase())) {
+                this.activityList.remove(entry);
+                return true;
+            }
         }
-        this.activityList.remove(activity);
 
-        return true;
+        return false;
     }
 
     public boolean exists(String activity) {            // checks if the given String exists in the list
-        if (!(this.activityList.contains(activity))) {
-            return false;
+        for (String entry: this.activityList) {
+            if (activity.toLowerCase().equals(entry.toLowerCase())) {
+                return true;
+            }
         }
-    
-        return true;
+
+        return false;
     }
 
-    public void replace(String activity, String newActivity) {   // replaces Strings acitivty with newActivity
-        int activityIndex = this.activityList.indexOf(activity);
-        this.activityList.set(activityIndex, newActivity);
+    public void replace(String activity, String newActivity) {   // replaces Strings activity with newActivity
+        System.out.println(activity + ", " + newActivity);
+        
+        int location;
+        for (String entry: this.activityList) {
+            if (activity.toLowerCase().equals(entry.toLowerCase())) {
+                location = this.activityList.indexOf(entry);
+                this.activityList.set(location, newActivity);
+                return;
+            }
+        }
     }
 
     public String getTaskListAsString() {                           // gets the task list as a string
