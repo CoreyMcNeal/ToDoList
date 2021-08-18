@@ -1,6 +1,6 @@
 ## ToDoList
 
-Program is a GUI operated ToDoList. Using the various buttons on the home panel, the user can choose whether to add, remove, edit, show list, or exit out of the program. The activity entered can be any type of string.
+Program is a GUI operated ToDoList. Using the various buttons on the home panel, the user can choose whether to add, remove, edit, or exit out of the program. The activity entered can be any type of string.
 
 ## How to Use
 - Run "App.java" within the Main folder.
