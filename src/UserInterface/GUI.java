@@ -195,6 +195,7 @@ public class GUI implements ActionListener {
 
         frame.add(addPanel, BorderLayout.CENTER);
         addPanel.setVisible(true);
+        addEntry.requestFocus();
 
         frame.validate();
     }
@@ -205,6 +206,7 @@ public class GUI implements ActionListener {
 
         frame.add(removePanel, BorderLayout.CENTER);
         removePanel.setVisible(true);
+        removeEntry.requestFocus();
 
         frame.validate();
     }
@@ -215,6 +217,7 @@ public class GUI implements ActionListener {
 
         frame.add(editPanel, BorderLayout.CENTER);
         editPanel.setVisible(true);
+        editEntry.requestFocus();
 
         frame.validate();
     }
@@ -225,6 +228,7 @@ public class GUI implements ActionListener {
 
         frame.add(confirmPanel, BorderLayout.CENTER);
         confirmPanel.setVisible(true);
+        confirmEntry.requestFocus();
 
         frame.validate();
     }
